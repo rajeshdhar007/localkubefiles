@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: hellonode
+  name: hellonode
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: hellonode
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: hellonode
+    spec:
+      containers:
+      - image: rdharazacr.azurecr.io/hostnodeapp:v1
+        name: hostnodeapp
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hellonode
+spec:
+  type: LoadBalancer
+  selector:
+    app: hellonode
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000

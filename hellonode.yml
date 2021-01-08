@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: hellonode
+  name: hellonode
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hellonode
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: hellonode
+    spec:
+      containers:
+      - image: rdhar/hellohostnode:v1
+        name: hellohostnode
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hellonode
+spec:
+  selector:
+    app: hellonode
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
